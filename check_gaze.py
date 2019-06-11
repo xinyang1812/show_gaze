@@ -53,19 +53,21 @@ while(True):
     # continue
     resized = frame
     ratio = 1
-    
+
     # convert the resized image to grayscale, blur it slightly,
     # and threshold it
     gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
+    gray[:480,:] = 180
     # cv2.imshow('gray',gray)
-    
+    # cv2.waitKey(0)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     # thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY)[1]
     thresh = cv2.adaptiveThreshold(blurred,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
                     cv2.THRESH_BINARY,3,5)
-    # Otsu's thresholding
-    ret,thresh = cv2.threshold(blurred,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    # # Otsu's thresholding
+    # ret,thresh = cv2.threshold(blurred,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     # cv2.imshow("Thresh", thresh)
+    # cv2.waitKey(0)
     thresh = 255 - thresh
     # cv2.waitKey(100)
     # continue
@@ -87,18 +89,24 @@ while(True):
         print(shape)
         if shape != 'circle':
             continue
+        print('lenm',len(c))
+        if len(c) < 50:
+            continue
         contour = c[:, 0, :]
 
         for con in contour:
             cv2.circle(image, (con[0], con[1]), 1, (255, 0, 255), -1)
-            # cv2.imshow('outline', image)
+        # cv2.imshow('outline', image)
+        # cv2.waitKey(0)
 
         # TODO:undistort
         # contour = contour - [image.shape[0] / 2, image.shape[1] / 2]
         fx = 711.23473925
         fy = 718.29852683
-        cx = (image.shape[0] / 2)
-        cy = (image.shape[1] / 2)
+        cx = 282.9217
+        cy = 495.5409
+        # cx = (image.shape[0] / 2)
+        # cy = (image.shape[1] / 2)
 
         u = (contour[:,1] - cy) / fy
         v = (contour[:,0] - cx) / fx
@@ -111,7 +119,7 @@ while(True):
         yy = _[1]
         zz = _[2]
         
-        plt.plot(contour[:, 0], contour[:, 1], color='pink')
+        plt.plot(v, u, color='pink')
         plt.plot(xx, yy, color='red')
         plt.plot(xx, zz, color='green')
 

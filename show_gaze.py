@@ -130,24 +130,24 @@ def show_gaze(img, normals):
         cv2.circle(img, q1, 3, (0,0,255), -1)
         cv2.line(img, p0, q1, color, 2)
 
-        # idx = 25
-        # for p in normals_point2d:
-        #     color = (idx,0,0)
-        #     idx = idx+25
-        #     q1 = ( int(p[0][0]), int(p[0][1]))
-        #     print('gaze_points2d', q1)
-        #     cv2.circle(img, q1, 3, (0,0,255), -1)
-        #     cv2.line(img, p0, q1, color, 2)
+        idx = 25
+        for p in normals_point2d:
+            color = (idx,0,0)
+            idx = idx+25
+            q1 = ( int(p[0][0]), int(p[0][1]))
+            print('gaze_points2d', q1)
+            cv2.circle(img, q1, 3, (0,0,255), -1)
+            cv2.line(img, p0, q1, color, 2)
 
+        #
+        # text1 = "Minimum angle: " + str(Angle[inmin])
+        # aa = map(int, Angle[1:])
+        # text2 = "all angles: " + str(aa[0:4])
+        # text3 = str(aa[4:])
+        # AddText = img.copy()
+        # cv2.putText(AddText, text1, (10, 50), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 0, 0), 2)
+        # cv2.putText(AddText, text2, (1, 80), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
+        # cv2.putText(AddText, text3, (1, 100), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
 
-        text1 = "Minimum angle: " + str(Angle[inmin])
-        aa = map(int, Angle[1:])
-        text2 = "all angles: " + str(aa[0:4])
-        text3 = str(aa[4:])
-        AddText = img.copy()
-        cv2.putText(AddText, text1, (10, 50), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 0, 0), 2)
-        cv2.putText(AddText, text2, (1, 80), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
-        cv2.putText(AddText, text3, (1, 100), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
-
-        cv2.imshow('img',AddText)
+        cv2.imshow('img',img)
         cv2.waitKey(100)

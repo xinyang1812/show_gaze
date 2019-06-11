@@ -121,7 +121,7 @@ while (True):
 
     plt.title('Ellipse fittig evaluation')
     plt.ylabel('contour points in height')
-    # plt.show()
+    plt.show()
     # show gaze
     vs.show_gaze(resized, normals)
     print normals
